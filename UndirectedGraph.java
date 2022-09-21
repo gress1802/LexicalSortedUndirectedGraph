@@ -42,6 +42,28 @@ public class UndirectedGraph {
         //return true if a vertex is added
         //return false if a vertex with name s already exists
         //the vertex list is kept in ascending sorted order based on the name
+        VertexNode temp = vertices;
+        if(vertices == null || vertices.vertexName.compareToIgnoreCase(s) > 0){ //Special case for head
+            if(vertices != null && vertices.vertexName.equals(s)) return false; //checking for duplicates
+            vertices = new VertexNode(s,vertices);
+            return true;
+        }else{
+            if(vertices.vertexName.equals(s)) return false; //checking for duplicates
+            while(temp.nextV != null && temp.nextV.vertexName.compareToIgnoreCase(s)<0){
+                temp = temp.nextV;
+            }
+            if(temp.nextV != null && temp.nextV.vertexName.equals(s)) return false; //checking for duplicates
+            if(temp.nextV == null && temp.vertexName.compareToIgnoreCase(s) < 0){
+                temp.nextV = new VertexNode(s,null);
+                return true;
+            }
+            temp.nextV = new VertexNode(s, temp.nextV);
+            return true;
+
+        }
+
+
+
     }
 
     public void addEdge(String v1, String v2) { 
@@ -50,13 +72,35 @@ public class UndirectedGraph {
         //Assume the edge has not been added
     }
 
-    public void printGraph() { 
-        //print the graph using the format shown in class
+    public void printVertices(){
+        String s = vertices.vertexName;
+        VertexNode temp = vertices;
+        while(temp.nextV!=null){
+            s = s+", "+temp.nextV.vertexName;
+            temp = temp.nextV;
+        }
+        System.out.println(s);
+    }
+
+    public void printGraph() {
+        
     }
 
     public static void main(String args[]) throws IOException { 
         //DO NOT CHANGE main 
         //This code assumes the input file is syntactically correct 
+
+        UndirectedGraph g = new UndirectedGraph();
+        g.addVertex("E");
+        g.addVertex("D");
+        g.addVertex("F");
+        g.addVertex("A");
+        g.addVertex("B");
+        g.addVertex("C");
+        g.printVertices();
+
+
+        /* 
         UndirectedGraph g = new UndirectedGraph(); 
         BufferedReader b = new BufferedReader(new FileReader(args[0])); 
         String line = b.readLine(); 
@@ -73,6 +117,7 @@ public class UndirectedGraph {
         g.printGraph();
         b.close(); //close BufferedReader b
         scan.close(); //close Scanner scan
+        */
     } 
 
 }
