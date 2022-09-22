@@ -66,7 +66,46 @@ public class UndirectedGraph {
 
     }
 
-    public void addEdge(String v1, String v2) { 
+    public void addEdge(String v1, String v2) {
+        VertexNode temp = vertices; //node to traverse through lists
+        VertexNode vertexForString1 = vertices; //this will be initialized to a different value 
+        VertexNode vertexForString2 = vertices; //this will be initialized to a different value
+        //traversing through the list of vertices to find which vertices we are adding edges too
+        if(vertices.vertexName.equals(v1)){ //if the related vertex is vertices
+            vertexForString1 = vertices; //this is the vertex for the first string
+        }else{
+            while(temp.nextV != null){ //if the vertex is not vertices
+                if(temp.nextV.vertexName.equals(v1)){
+                    vertexForString1 = temp.nextV;
+                    break;
+                }
+                temp = temp.nextV;
+            }
+        }
+
+        temp = vertices; //reset temp to vertices
+
+        if(vertices.vertexName.equals(v2)){ //if the related vertex is vertices
+            vertexForString2 = vertices; //this is the vertex for the second string
+        }else{
+            while(temp.nextV != null){ //if the vertex is not vertices
+                if(temp.nextV.vertexName.equals(v2)){
+                    vertexForString2 = temp.nextV;
+                    break;
+                }
+                temp = temp.nextV;
+            }
+        }
+
+        //if either of the Strings are the same as the vertices String then we have to first add an edge to the vertices node in the correct order
+        //after that we need to update the second edge list
+        if(v1.equals(vertices.vertexName) || v2.equals(vertices.vertexName)){ 
+
+        }
+        
+
+
+
         //PRE: v1 and v2 are legitimate vertex names
         //(i.e. vertices with names v1 and v2 exist in the vertex list)
         //Assume the edge has not been added
@@ -83,7 +122,10 @@ public class UndirectedGraph {
     }
 
     public void printGraph() {
-        
+       VertexNode temp = vertices;
+       while(temp.nextV != null){
+            
+       }
     }
 
     public static void main(String args[]) throws IOException { 
@@ -98,6 +140,8 @@ public class UndirectedGraph {
         g.addVertex("B");
         g.addVertex("C");
         g.printVertices();
+
+        g.addEdge("F", "F");
 
 
         /* 
