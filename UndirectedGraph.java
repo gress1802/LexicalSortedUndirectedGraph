@@ -99,8 +99,10 @@ public class UndirectedGraph {
 
         //if either of the Strings are the same as the vertices String then we have to first add an edge to the vertices node in the correct order
         //after that we need to update the second edge list
-        if(v1.equals(vertices.vertexName) || v2.equals(vertices.vertexName)){ 
-
+        if(v1.equals(vertices.vertexName)){
+            vertexForString1.edges[0] = new EdgeNode(vertexForString2, vertexForString1);
+        }else if(v2.equals(vertices.vertexName)){
+            vertexForString2.edges[0] = new EdgeNode(vertexForString1, vertexForString2);
         }
         
 
@@ -123,9 +125,17 @@ public class UndirectedGraph {
 
     public void printGraph() {
        VertexNode temp = vertices;
-       while(temp.nextV != null){
-            
-       }
+       EdgeNode tempE0 = temp.edges[0];
+       EdgeNode tempE1 = temp.edges[1];
+       System.out.println(temp.edges[0].edge[0].vertexName);
+ /*        while(temp.nextV != null){//traversing through the list of vertices
+            tempE0 = temp.edges[0];
+            tempE1 = temp.edges[1];
+            while(tempE0.nextE != null){//traversing through the edges[0] list
+
+                tempE0 = tempE0.nextE[0];
+            }
+       }*/
     }
 
     public static void main(String args[]) throws IOException { 
@@ -141,7 +151,10 @@ public class UndirectedGraph {
         g.addVertex("C");
         g.printVertices();
 
-        g.addEdge("F", "F");
+        g.addEdge("A", "B");
+        g.addEdge("C","A");
+
+        g.printGraph();
 
 
         /* 
