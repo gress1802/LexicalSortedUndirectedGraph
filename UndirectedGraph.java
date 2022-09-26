@@ -302,32 +302,6 @@ public class UndirectedGraph {
     public static void main(String args[]) throws IOException { 
         //DO NOT CHANGE main 
         //This code assumes the input file is syntactically correct 
-
-/*         UndirectedGraph g = new UndirectedGraph();
-        g.addVertex("E");
-        g.addVertex("D");
-        g.addVertex("F");
-        g.addVertex("A");
-        g.addVertex("B");
-        g.addVertex("C");
-
-        g.addEdge("F", "A");
-        g.addEdge("F", "B");
-        g.addEdge("A", "B");
-        g.addEdge("F", "E");
-        g.addEdge("C", "A");
-        g.addEdge("B", "D");        
-        g.addEdge("D","F");
-        g.addEdge("D", "C");
-        g.addEdge("C", "E");
-        g.addEdge("D", "E");
-        g.addEdge("A", "D");
-        g.printGraph(); */
-        
-
-        
-
-         
         UndirectedGraph g = new UndirectedGraph(); 
         BufferedReader b = new BufferedReader(new FileReader(new File("./TestDrive.Txt"))); 
         String line = b.readLine(); 
