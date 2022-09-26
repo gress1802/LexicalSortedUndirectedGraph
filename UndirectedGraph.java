@@ -107,7 +107,7 @@ public class UndirectedGraph {
             insertSortedEdge(vertexForString2, vertexForString1, v2, v1); //inserts into edges[0] list
         }else{//Every other case for B,C,D,E,F
            if(v1.compareToIgnoreCase(v2) < 0){ // this is the normal case where v1 is less than v2
-                if(vertexForString1.edges[0] == null || v1.compareToIgnoreCase(vertexForString1.edges[0].edge[0].vertexName) < 0){
+                if(vertexForString1.edges[0] == null || v2.compareToIgnoreCase(vertexForString1.edges[0].edge[0].vertexName) < 0){
                     EdgeNode tempE = vertexForString1.edges[0];
                     vertexForString1.edges[0] = new EdgeNode(vertexForString2,vertexForString1); // creating new edges[0] node
                     vertexForString1.edges[0].nextE[0] = tempE; //adding back on the rest of the list 
@@ -202,7 +202,9 @@ public class UndirectedGraph {
     public void insertEdge1(EdgeNode node, VertexNode vertexForString1, VertexNode vertexForString2, String v1, String v2){ //This method adds edgenodes to edges[1] list
         EdgeNode temp1 = vertexForString2.edges[1];
         if(temp1 == null || v1.compareToIgnoreCase(temp1.edge[1].vertexName)<0){
+            EdgeNode tempEdge = vertexForString2.edges[1];
             vertexForString2.edges[1] = node;
+            node.nextE[1] = tempEdge;
             return;
         }else{
             while(temp1.nextE[1] != null){ //Otherwise traverse the list and look for the correct place for this edgenode
@@ -237,10 +239,14 @@ public class UndirectedGraph {
 
         EdgeNode tempFirst = vertices.edges[0];
         System.out.print(vertices.vertexName); //printing the vertices
-        System.out.print(" "+tempFirst.edge[0].vertexName);//printing the first edgenode in the list [0]
-        while(tempFirst.nextE[0] != null){//prints the edges[0] of the first vertex (This vertex will have no edges[1])
-            System.out.print(" "+tempFirst.nextE[0].edge[0].vertexName);
-            tempFirst = tempFirst.nextE[0];
+        if(tempFirst == null){
+
+        }else{
+            System.out.print(" "+tempFirst.edge[0].vertexName);//printing the first edgenode in the list [0]
+            while(tempFirst.nextE[0] != null){//prints the edges[0] of the first vertex (This vertex will have no edges[1])
+                System.out.print(" "+tempFirst.nextE[0].edge[0].vertexName);
+                tempFirst = tempFirst.nextE[0];
+            }
         }
 
         System.out.println();
@@ -248,23 +254,40 @@ public class UndirectedGraph {
 
 
         while(temp.nextV != null){//traverses through the vertices
-            if(temp.edges[0] == null){
+            if(temp.nextV.edges[0] == null){
                 System.out.println(temp.nextV.vertexName);
+                tempE1 = temp.nextV.edges[1];
             }else{
                 System.out.print(temp.nextV.vertexName);//printing the edges[0] list
                 tempE0 = temp.nextV.edges[0];
+                tempE1 = temp.nextV.edges[1];
 
                 if(tempE0 == null){
                     System.out.println();
                 }else{
+                    System.out.print(" "+tempE0.edge[0].vertexName+" ");
                     while(tempE0.nextE[0] != null){
                         System.out.print(tempE0.nextE[0].edge[0].vertexName+" ");
                         tempE0 = tempE0.nextE[0];
-                    }
+                    }//printing edges[1] list
                     System.out.println();
                 }
-
             }
+            //
+            tempE1 = temp.nextV.edges[1];
+            if(tempE1 != null && tempE1.nextE[1] == null){
+                System.out.print("  "+tempE1.edge[1].vertexName);
+            }else{
+                if(tempE1 != null){
+                    System.out.print("  "+tempE1.edge[1].vertexName);
+                }
+                while(tempE1 != null && tempE1.nextE[1] != null){
+                    System.out.print(" "+tempE1.nextE[1].edge[1].vertexName);
+                    tempE1 = tempE1.nextE[1];
+                }
+            }
+            System.out.println();
+            //
             System.out.println();
             temp = temp.nextV;
         }
@@ -273,8 +296,8 @@ public class UndirectedGraph {
     }
 
     public void test(){
-        VertexNode t = vertices.nextV;
-        System.out.println(t.edges[0].edge[0].vertexName);
+        VertexNode t = vertices.nextV.nextV.nextV.nextV.nextV;
+        System.out.println(t.vertexName+": "+t.edges[1].edge[1].vertexName);
         
     }
 
@@ -283,7 +306,7 @@ public class UndirectedGraph {
         //DO NOT CHANGE main 
         //This code assumes the input file is syntactically correct 
 
-        UndirectedGraph g = new UndirectedGraph();
+/*         UndirectedGraph g = new UndirectedGraph();
         g.addVertex("E");
         g.addVertex("D");
         g.addVertex("F");
@@ -291,20 +314,23 @@ public class UndirectedGraph {
         g.addVertex("B");
         g.addVertex("C");
 
-        g.addEdge("A", "D");
-        g.addEdge("A", "C");
-        g.addEdge("A", "F");
-        g.addEdge("A", "E");
+        g.addEdge("F", "A");
+        g.addEdge("F", "B");
         g.addEdge("A", "B");
-        g.addEdge("C", "B");        
-        g.addEdge("F","C");
+        g.addEdge("F", "E");
+        g.addEdge("C", "A");
+        g.addEdge("B", "D");        
+        g.addEdge("D","F");
         g.addEdge("D", "C");
-        g.printGraph();
+        g.addEdge("C", "E");
+        g.addEdge("D", "E");
+        g.addEdge("A", "D");
+        g.printGraph(); */
         
 
         
 
-        /* 
+         
         UndirectedGraph g = new UndirectedGraph(); 
         BufferedReader b = new BufferedReader(new FileReader(args[0])); 
         String line = b.readLine(); 
@@ -321,7 +347,7 @@ public class UndirectedGraph {
         g.printGraph();
         b.close(); //close BufferedReader b
         scan.close(); //close Scanner scan
-        */
+        
     } 
 
 }
