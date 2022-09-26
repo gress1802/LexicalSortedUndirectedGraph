@@ -221,7 +221,9 @@ public class UndirectedGraph {
         }
     }
 
-
+/*
+ *  This is a method that simply prints the vertices
+ */
     public void printVertices(){
         String s = vertices.vertexName;
         VertexNode temp = vertices;
@@ -295,11 +297,6 @@ public class UndirectedGraph {
 
     }
 
-    public void test(){
-        VertexNode t = vertices.nextV.nextV.nextV.nextV.nextV;
-        System.out.println(t.vertexName+": "+t.edges[1].edge[1].vertexName);
-        
-    }
 
 
     public static void main(String args[]) throws IOException { 
@@ -332,7 +329,7 @@ public class UndirectedGraph {
 
          
         UndirectedGraph g = new UndirectedGraph(); 
-        BufferedReader b = new BufferedReader(new FileReader(args[0])); 
+        BufferedReader b = new BufferedReader(new FileReader(new File("./TestDrive.Txt"))); 
         String line = b.readLine(); 
         Scanner scan = new Scanner(line); 
         while (scan.hasNext()) { 
@@ -345,8 +342,6 @@ public class UndirectedGraph {
             line = b.readLine(); 
         } 
         g.printGraph();
-        b.close(); //close BufferedReader b
-        scan.close(); //close Scanner scan
         
     } 
 
